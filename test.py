@@ -1,7 +1,29 @@
 import cv2
 import mediapipe as mp
-import csv
-import read_csv
+import csv_reader as read_csv
+import display_images
+
+# =========================================
+
+mask_filenames = ['images/bluerecorder.png']
+csv_filenames = ['images/bluerecorder.png']
+
+mask_width = 70
+mask_height = 100
+masks_files = []
+
+for file in mask_filenames:
+    mask = cv2.imread(file, cv2.IMREAD_UNCHANGED)
+    mask = cv2.resize(mask, (mask_width, mask_height))
+    mask = mask / 255.0
+    masks_files.append(mask)
+
+# Selection of mask variables
+selected = 1
+hover = -1
+
+# ===========================================
+
 # 그리기 도구 지원해주는 서브 패키지
 mp_drawing = mp.solutions.drawing_utils
 
@@ -9,13 +31,18 @@ mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
 # 캠 키기
+height,width = 576,768
 cap = cv2.VideoCapture(0)
+ret,image = cap.read()
+image = cv2.resize(image,(width,height))
 
 # mp_hands의 Hands 정보를 설정하고 읽어들임
 with mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5,
                     min_tracking_confidence=0.5) as hands:
     # 캠이 켜져있을때
     while cap.isOpened():
+        csv_filename = csv_filenames[0 if selected == 1 else selected]
+        img_filename = mask_filenames[selected]
 
         # 캠 읽기 성공여부 success와 읽은 이미지를 image에 저장
         success, image = cap.read()
@@ -35,22 +62,7 @@ with mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5,
         # 이미지 값 순서를 RGB에서 BGR로 다시 바꿈
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # =========================================
-
-        mask_filenames = ['images/bluerecorder.png']
-        csv_filenames = ['images/bluerecorder.png']
-
-        mask_width = 70
-        mask_height = 100
-        masks_files = []
-
-        for file in mask_filenames:
-            mask = cv2.imread(file, cv2.IMREAD_UNCHANGED)
-            mask = cv2.resize(mask, (mask_width, mask_height))
-            mask = mask / 255.0
-            masks_files.append(mask)
-
-        #===========================================
+        cv2.rectangle(masks_files[0], (100, 60), (520, 300), (255, 255, 255), 3)
         cv2.rectangle(overlay, (100, 60), (520, 300), (255, 255, 255), -1)
 
         # 건반 그리기----------------------------------------------------------------------------
@@ -74,6 +86,8 @@ with mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5,
         image = cv2.addWeighted(overlay, 0.4, image, 1, 0)
         # 캠 화면에 띄울 텍스트 정의 ( 기본 값 )
         gesture_text = 'Cant found hand'
+
+
 
         # 결과 result가 제대로 추적이 되었을때
         if result.multi_hand_landmarks:
