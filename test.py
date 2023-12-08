@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
-
+import csv
+import read_csv
 # 그리기 도구 지원해주는 서브 패키지
 mp_drawing = mp.solutions.drawing_utils
 
@@ -11,7 +12,7 @@ mp_hands = mp.solutions.hands
 cap = cv2.VideoCapture(0)
 
 # mp_hands의 Hands 정보를 설정하고 읽어들임
-with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.5,
+with mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5,
                     min_tracking_confidence=0.5) as hands:
     # 캠이 켜져있을때
     while cap.isOpened():
@@ -27,13 +28,50 @@ with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.5,
         # 이미지 값 순서를 BGR -> RGB로 변환
         # 이미지 순서가 RGB여야 Mediapipe 사용가능
         image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+        overlay = image.copy()
 
         # Image에서 손을 추적하고 결과를 result에 저장
         result = hands.process(image)
-
         # 이미지 값 순서를 RGB에서 BGR로 다시 바꿈
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
+        # =========================================
+
+        mask_filenames = ['images/bluerecorder.png']
+        csv_filenames = ['images/bluerecorder.png']
+
+        mask_width = 70
+        mask_height = 100
+        masks_files = []
+
+        for file in mask_filenames:
+            mask = cv2.imread(file, cv2.IMREAD_UNCHANGED)
+            mask = cv2.resize(mask, (mask_width, mask_height))
+            mask = mask / 255.0
+            masks_files.append(mask)
+
+        #===========================================
+        cv2.rectangle(overlay, (100, 60), (520, 300), (255, 255, 255), -1)
+
+        # 건반 그리기----------------------------------------------------------------------------
+        cv2.line(overlay, (100, 60), (520, 60), (0, 0, 0), 2)
+        cv2.rectangle(overlay, (140, 60), (175, 150), (0, 0, 0), -1)
+        cv2.line(overlay, (100, 300), (520, 300), (0, 0, 0), 2)
+        cv2.rectangle(overlay, (200, 60), (235, 150), (0, 0, 0), -1)
+        cv2.line(overlay, (100, 60), (100, 300), (0, 0, 0), 2)
+        cv2.line(overlay, (160, 60), (160, 300), (0, 0, 0), 2)
+        cv2.rectangle(overlay, (320, 60), (355, 150), (0, 0, 0), -1)
+        cv2.line(overlay, (220, 60), (220, 300), (0, 0, 0), 2)
+        cv2.rectangle(overlay, (380, 60), (415, 150), (0, 0, 0), -1)
+        cv2.line(overlay, (280, 60), (280, 300), (0, 0, 0), 2)
+        cv2.rectangle(overlay, (440, 60), (475, 150), (0, 0, 0), -1)
+        cv2.line(overlay, (280, 60), (280, 300), (0, 0, 0), 2)
+        cv2.line(overlay, (340, 60), (340, 300), (0, 0, 0), 2)
+        cv2.line(overlay, (400, 60), (400, 300), (0, 0, 0), 2)
+        cv2.line(overlay, (460, 60), (460, 300), (0, 0, 0), 2)
+        cv2.line(overlay, (520, 60), (520, 300), (0, 0, 0), 2)
+
+        image = cv2.addWeighted(overlay, 0.4, image, 1, 0)
         # 캠 화면에 띄울 텍스트 정의 ( 기본 값 )
         gesture_text = 'Cant found hand'
 
