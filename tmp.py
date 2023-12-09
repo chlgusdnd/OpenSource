@@ -20,40 +20,67 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
         results = hands.process(cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB))
 
         overlay = frame1.copy()
-        cv2.line(overlay, (250, 360), (350, 360), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 390), (350, 390), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 420), (350, 420), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 450), (350, 450), (0, 0, 0), 2)
-        cv2.line(overlay, (300, 390), (300, 420), (0, 0, 0), 2)
-        cv2.line(overlay, (300, 420), (300, 450), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 180), (350, 180), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 210), (350, 210), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 240), (350, 240), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 270), (350, 270), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 300), (350, 300), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 330), (350, 330), (0, 0, 0), 2)
-        cv2.line(overlay, (250, 180), (250, 450), (0, 0, 0), 2)
-        cv2.line(overlay, (350, 180), (350, 450), (0, 0, 0), 2)
-
-        frame1 = cv2.addWeighted(overlay, 0.4, frame1, 1, 0)
-
-
+        cv2.line(overlay, (0, 650), (1000, 650), (0, 0, 0), 2)
         # In case the system sees multiple hands this if statment deals with that and produces another hand overlay
         if results.multi_hand_landmarks != None:
             for handLandmarks in results.multi_hand_landmarks:
                 drawingModule.draw_landmarks(frame1, handLandmarks, handsModule.HAND_CONNECTIONS)
 
-                # Below is Added Code to find and print to the shell the Location X-Y coordinates of Index Finger, Uncomment if desired
-                # for point in handsModule.HandLandmark:
+                for point in handsModule.HandLandmark:
+                    normalizedLandmark = handLandmarks.landmark[point]
+                    #pixelCoordinatesLandmark= drawingModule._normalized_to_pixel_coordinates(normalizedLandmark.x, normalizedLandmark.y, 1000, 1000)
+                    if point == 4:
+                        right_x = int(normalizedLandmark.x * 1000)
+                        right_y = int(normalizedLandmark.y * 1000)
+                        if right_y > 650:
+                            print(point)
+                            # print(pixelCoordinatesLandmark)
+                            # print(normalizedLandmark)
+                            right_x -= 30
+                            cv2.rectangle(overlay, (right_x - 30, right_y - 175), (right_x + 30, right_y + 225), (255,255,255), -1)
+                            cv2.rectangle(overlay, (right_x - 60, right_y - 225), (right_x, right_y - 175), (255, 255, 255), -1)
+                            cv2.line(overlay, (right_x - 60, right_y - 225), (right_x, right_y - 225), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 60, right_y - 225), (right_x - 60, right_y - 175), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x, right_y - 225), (right_x, right_y - 175), (0, 0, 0),2)
+                            cv2.line(overlay, (right_x - 60, right_y - 175), (right_x - 30, right_y - 175), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y - 175), (right_x + 30, right_y - 175), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y - 125), (right_x + 30, right_y - 125), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y - 75), (right_x + 30, right_y - 75), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y - 25), (right_x + 30, right_y - 25), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y + 25), (right_x + 30, right_y + 25), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y + 75), (right_x + 30, right_y + 75), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y + 125), (right_x + 30, right_y + 125), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y + 175), (right_x + 30, right_y + 175), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y + 225), (right_x + 30, right_y + 225), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x, right_y + 125), (right_x, right_y + 175), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x, right_y + 175), (right_x, right_y + 225), (0, 0, 0), 2)
+                            cv2.line(overlay, (right_x - 30, right_y - 175), (right_x - 30, right_y + 225), (0, 0, 0),2)
+                            cv2.line(overlay, (right_x + 30, right_y - 175), (right_x + 30, right_y + 225), (0, 0, 0),2)
+                            frame1 = cv2.addWeighted(overlay, 0.4, frame1, 1, 0)
 
-                # normalizedLandmark = handLandmarks.landmark[point]
-                # pixelCoordinatesLandmark= drawingModule._normalized_to_pixel_coordinates(normalizedLandmark.x, normalizedLandmark.y, 640, 480)
 
-                # Using the Finger Joint Identification Image we know that point 8 represents the tip of the Index Finger
-                # if point == 8:
-                # print(point)
-                # print(pixelCoordinatesLandmark)
-                # print(normalizedLandmark)
+
+
+
+                for hand_landmarks in results.multi_hand_landmarks:
+                    finger1_x = int(hand_landmarks.landmark[4].x * 1000)
+                    finger2_x = int(hand_landmarks.landmark[8].x * 1000)
+                    finger3_x = int(hand_landmarks.landmark[12].x * 1000)
+                    finger4_x = int(hand_landmarks.landmark[16].x * 1000)
+                    finger5_x = int(hand_landmarks.landmark[20].x * 1000)
+
+                    finger1_y = int(hand_landmarks.landmark[4].y * 1000)
+                    finger2_y = int(hand_landmarks.landmark[8].y * 1000)
+                    finger3_y = int(hand_landmarks.landmark[12].y * 1000)
+                    finger4_y = int(hand_landmarks.landmark[16].y * 1000)
+                    finger5_y = int(hand_landmarks.landmark[20].y * 1000)
+
+
+
+
+
+
+
 
         # Below shows the current frame to the desktop
         cv2.imshow("Frame", frame1);
