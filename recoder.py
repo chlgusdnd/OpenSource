@@ -1,6 +1,11 @@
 # Import the necessary Packages for this software to run
 import mediapipe
 import cv2
+import pygame
+import os
+
+#pygame 초기화
+pygame.mixer.init()
 
 # Use MediaPipe to draw the hand framework over the top of hands it identifies in Real-Time
 drawingModule = mediapipe.solutions.drawing_utils
@@ -10,8 +15,7 @@ handsModule = mediapipe.solutions.hands
 cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 
-with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, min_tracking_confidence=0.7,
-                       max_num_hands=2) as hands:
+with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, min_tracking_confidence=0.7, max_num_hands=2) as hands:
     # Create an infinite loop which will produce the live feed to our desktop and that will search for hands
     while cap.isOpened():
         ret, frame = cap.read()
@@ -118,14 +122,22 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                     print("2",finger5_right_y, finger5_right_x)
                     print("", finger5_left_y, finger5_left_x)
 
+
+
                     if finger1_right_y + 175 < finger5_right_y < finger1_right_y + 255:
                         if finger1_right_x - 30 < finger5_right_x < finger1_right_x + 30:
                             gesture_text = 'do'
+                            sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\do.wav'
+                            pygame.mixer.music.load(sound_dir)
+                            pygame.mixer.music.play()
                             # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
                             cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
                     elif finger1_right_y + 125 < finger4_right_y < finger1_right_y + 175:
                         if finger1_right_x - 30 < finger4_right_x < finger1_right_x + 30:
                             gesture_text = 're'
+                            sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\re.wav'
+                            pygame.mixer.music.load(sound_dir)
+                            pygame.mixer.music.play()
                             # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x , finger1_right_y + 175), (0,0,255), 3)
                             cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 175), (0, 0, 255), 3)
                     elif finger1_right_y + 75 < finger3_right_y < finger1_right_y + 125:
