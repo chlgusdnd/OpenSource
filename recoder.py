@@ -26,6 +26,8 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
         b_note = None
         overlay = frame1.copy()
         cv2.line(overlay, (0, 650), (1000, 650), (0, 0, 0), 2)
+        key = cv2.waitKey(1) & 0xFF
+
 
         gesture_text = 'Cant found hand'
         if results.multi_hand_landmarks != None:
@@ -215,7 +217,9 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
 
         # Below shows the current frame to the desktop
         cv2.imshow("Frame", frame1);
-        key = cv2.waitKey(1) & 0xFF
+
+
+
 
         # Below states that if the |q| is press on the keyboard it will stop the system
         if key == ord("q"):
