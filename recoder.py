@@ -23,6 +23,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
         frame1 = cv2.resize(flipped, (1000, 1000))
         results = hands.process(cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB))
 
+        b_note = None
         overlay = frame1.copy()
         cv2.line(overlay, (0, 650), (1000, 650), (0, 0, 0), 2)
 
@@ -123,54 +124,87 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                     print("", finger5_left_y, finger5_left_x)
 
 
-
                     if finger1_right_y + 175 < finger5_right_y < finger1_right_y + 255:
                         if finger1_right_x - 30 < finger5_right_x < finger1_right_x + 30:
                             gesture_text = 'do'
-                            sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\do.wav'
-                            pygame.mixer.music.load(sound_dir)
-                            pygame.mixer.music.play()
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\do.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
                     elif finger1_right_y + 125 < finger4_right_y < finger1_right_y + 175:
                         if finger1_right_x - 30 < finger4_right_x < finger1_right_x + 30:
                             gesture_text = 're'
-                            sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\re.wav'
-                            pygame.mixer.music.load(sound_dir)
-                            pygame.mixer.music.play()
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x , finger1_right_y + 175), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 175), (0, 0, 255), 3)
+                            if (b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\re.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x , finger1_right_y + 175), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 175), (0, 0, 255), 3)
                     elif finger1_right_y + 75 < finger3_right_y < finger1_right_y + 125:
                         if finger1_right_x - 30 < finger3_right_x < finger1_right_x + 30:
                             gesture_text = 'mi'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\mi.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
                     elif finger1_right_y + 25 < finger2_right_y < finger1_right_y + 75:
                         if finger1_right_x - 30 < finger2_right_x < finger1_right_x + 30:
-                            gesture_text = 'pa'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 75), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y + 75), (0, 0, 255), 3)
+                            gesture_text = 'fa'
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\fa.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 75), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y + 75), (0, 0, 255), 3)
 
                     elif finger1_right_y - 25 < finger5_left_y < finger1_right_y + 25:
                         if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
-                            gesture_text = 'su'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y + 25), (0, 0, 255), 3)
+                            gesture_text = 'sol'
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\sol.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y + 25), (0, 0, 255), 3)
                     elif finger1_right_y - 50 < finger4_left_y < finger1_right_y - 25:
                         if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
                             gesture_text = 'ra'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 25), (0, 0, 255), 3)
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\ra.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 25), (0, 0, 255), 3)
                     elif finger1_right_y - 75 < finger5_left_y < finger1_right_y - 50:
                         if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
                             gesture_text = 'si'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 50), (0, 0, 255), 3)
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\si.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 50), (0, 0, 255), 3)
                     elif finger1_right_y - 125 < finger5_left_y < finger1_right_y - 75:
                         if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
                             gesture_text = 'do2'
-                            # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                            cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 75), (0, 0, 255), 3)
+                            if(b_note != gesture_text):
+                                b_note = gesture_text
+                                sound_dir = r'C:\Users\dnflskfkakstp1183\Desktop\team\highdo.wav'
+                                pygame.mixer.music.load(sound_dir)
+                                pygame.mixer.music.play()
+                                # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
+                                cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),(finger1_right_x, finger1_right_y - 75), (0, 0, 255), 3)
 
 
 
