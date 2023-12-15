@@ -249,11 +249,6 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         elif 700 < finger1_x < 780 and 650 < finger1_y < 820:
                             gesture_text = 'ti'
 
-
-
-
-
-
         cv2.putText(frame1, text='name: {}'.format(gesture_text)
                     , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                     fontScale=1, color=(0, 0, 255), thickness=2)
