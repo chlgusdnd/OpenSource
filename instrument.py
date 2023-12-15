@@ -16,7 +16,6 @@ stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, input=True,
                 frames_per_buffer=CHUNK)
 
 cap = cv2.VideoCapture(0)
-fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 
 with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, min_tracking_confidence=0.7,
                        max_num_hands=2) as hands:
