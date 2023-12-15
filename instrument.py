@@ -214,11 +214,11 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
             if results.multi_hand_landmarks != None:
                 for handLandmarks in results.multi_hand_landmarks:
                     drawingModule.draw_landmarks(frame1, handLandmarks, handsModule.HAND_CONNECTIONS)
-                    finger1_x = int(handLandmarks.landmark[4].x * 1000)
-                    finger1_y = int(handLandmarks.landmark[4].y * 1000)
+                    finger1_x = int(handLandmarks.landmark[8].x * 1000)
+                    finger1_y = int(handLandmarks.landmark[8].y * 1000)
 
 
-                    if handLandmarks.landmark[4].y > handLandmarks.landmark[5].y:
+                    if handLandmarks.landmark[7].y > handLandmarks.landmark[8].y:
                         if 220 < finger1_x < 300 and 650 < finger1_y < 820:
                             gesture_text = 'do'
                         elif 280 < finger1_x < 325 and 650 > finger1_y > 490:
