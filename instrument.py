@@ -232,7 +232,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
             cv2.line(overlay, (780, 490), (780, 810), (0, 0, 0), 2)
             cv2.line(overlay, (300, 650), (300, 810), (0, 0, 0), 2)
             cv2.line(overlay, (380, 650), (380, 810), (0, 0, 0), 2)
-            cv2.line(overlay, (460, 650), (460, 810), (0, 0, 0), 2)
+            cv2.line(overlay, (460, 490), (460, 810), (0, 0, 0), 2)
             cv2.line(overlay, (540, 650), (540, 810), (0, 0, 0), 2)
             cv2.line(overlay, (620, 650), (620, 810), (0, 0, 0), 2)
             cv2.line(overlay, (700, 650), (700, 810), (0, 0, 0), 2)
@@ -362,59 +362,59 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                     finger1_x = int(handLandmarks.landmark[4].x * 1000)
                     finger1_y = int(handLandmarks.landmark[4].y * 1000)
 
-                    if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
-                        if 200 > finger1_x:
-                            con = 1
-                            title = input("file name")
-                            time.sleep(5)
-                            file = open(title, 'w', encoding='utf-8')
+                    # if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
+                    #     if 200 > finger1_x:
+                    #         con = 1
+                    #         title = input("file name")
+                    #         time.sleep(5)
+                    #         file = open(title, 'w', encoding='utf-8')
 
                     if 0 < finger1_x < 250 and 0 < finger1_y < 400:
                         gesture_text = 'leftcymbal'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\leftcymbal.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('c')
+                        # file.write('c')
                     elif 270 < finger1_x < 500 and 0 < finger1_y < 400:
                         gesture_text = 'lefttang'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\lefttang.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('d')
+                        # file.write('d')
                     elif 520 < finger1_x < 750 and 0 < finger1_y < 400:
                         gesture_text = 'righttang'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\righttang.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('e')
+                        # file.write('e')
                     elif 770 < finger1_x < 1500 and 0 < finger1_y < 400:
                         gesture_text = 'rightcybal'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\rightcymbal.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('f')
+                        # file.write('f')
                     elif 0 < finger1_x < 350 and 500 < finger1_y < 1000:
                         gesture_text = 'leftdrum'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\leftdrum.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('g')
+                        # file.write('g')
                     elif 370 < finger1_x < 650 and 500 < finger1_y < 1000:
                         gesture_text = 'base'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\base.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('a')
+                        # file.write('a')
                     elif 670 < finger1_x < 1000 and 500 < finger1_y < 1000:
                         gesture_text = 'rightdrum'
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\rightdrum.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
-                        file.write('b')
-                    if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
-                        if 800 < finger1_x:
-                            con = 0
-                            file.close()
+                        # file.write('b')
+                    # if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
+                    #     if 800 < finger1_x:
+                    #         con = 0
+                    #         file.close()
 
 
 
