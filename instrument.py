@@ -59,7 +59,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
         overlay = frame1.copy()
         if control == 'r':
             gesture_text = 'Recoder'
-            cv2.line(overlay, (0, 700), (1000, 700), (0, 0, 0), 2)
+            cv2.line(overlay, (0, 650), (1000, 650), (0, 0, 0), 2)
             if results.multi_hand_landmarks != None:
                 for handLandmarks in results.multi_hand_landmarks:
                     drawingModule.draw_landmarks(frame1, handLandmarks, handsModule.HAND_CONNECTIONS)
@@ -70,7 +70,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         if point == 4:
                             right_x = int(normalizedLandmark.x * 1000)
                             right_y = int(normalizedLandmark.y * 1000)
-                            if right_y > 700:
+                            if right_y > 650:
                                 # print(point)
                                 finger1_right_y = right_y
                                 finger1_right_x = right_x
@@ -145,7 +145,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                                 finger5_left_y = int(normalizedLandmark.y * 1000)
 
 
-                        if True:
+                        if vol > 90:
                             if finger1_right_y + 175 < finger5_right_y:
                                 if finger1_right_x - 30 < finger5_right_x < finger1_right_x + 30:
                                     gesture_text = 'do'
