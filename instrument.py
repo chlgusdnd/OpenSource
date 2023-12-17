@@ -172,8 +172,8 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0,0,255), 3)
-                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                    #               (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
+                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                                  (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
                             elif finger1_right_y + 25 < finger5_right_y:
                                 if finger1_right_x - 30 < finger2_right_x < finger1_right_x + 30:
                                     gesture_text = 'pa'
