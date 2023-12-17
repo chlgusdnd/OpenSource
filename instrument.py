@@ -25,7 +25,7 @@ con = 0
 
 with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, min_tracking_confidence=0.7,
                        max_num_hands=2) as hands:
-    control = 'p'
+    control = 'r'
     gesture_text = 'Piano'
     finger1_right_y = 0
     finger1_right_x = 0
@@ -59,7 +59,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
         overlay = frame1.copy()
         if control == 'r':
             gesture_text = 'Recoder'
-            cv2.line(overlay, (0, 650), (1000, 650), (0, 0, 0), 2)
+            cv2.line(overlay, (0, 700), (1000, 700), (0, 0, 0), 2)
             if results.multi_hand_landmarks != None:
                 for handLandmarks in results.multi_hand_landmarks:
                     drawingModule.draw_landmarks(frame1, handLandmarks, handsModule.HAND_CONNECTIONS)
@@ -70,7 +70,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         if point == 4:
                             right_x = int(normalizedLandmark.x * 1000)
                             right_y = int(normalizedLandmark.y * 1000)
-                            if right_y > 650:
+                            if right_y > 700:
                                 # print(point)
                                 finger1_right_y = right_y
                                 finger1_right_x = right_x
@@ -145,80 +145,81 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                                 finger5_left_y = int(normalizedLandmark.y * 1000)
 
 
-                        if vol > 90:
-                            if finger1_right_y + 175 < finger5_right_y < finger1_right_y + 255:
+                        if True:
+                            if finger1_right_y + 175 < finger5_right_y:
                                 if finger1_right_x - 30 < finger5_right_x < finger1_right_x + 30:
                                     gesture_text = 'do'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\do.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 225), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y + 225), (0, 0, 255), 3)
-                            elif finger1_right_y + 125 < finger4_right_y < finger1_right_y + 175:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y + 225), (0, 0, 255), 3)
+
+                            elif finger1_right_y + 125 < finger5_right_y:
                                 if finger1_right_x - 30 < finger4_right_x < finger1_right_x + 30:
                                     gesture_text = 're'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\re.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x , finger1_right_y + 175), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y + 175), (0, 0, 255), 3)
-                            elif finger1_right_y + 75 < finger3_right_y < finger1_right_y + 125:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y + 175), (0, 0, 255), 3)
+                            elif finger1_right_y + 75 < finger5_right_y:
                                 if finger1_right_x - 30 < finger3_right_x < finger1_right_x + 30:
                                     gesture_text = 'mi'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\mi.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 125), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
-                            elif finger1_right_y + 25 < finger2_right_y < finger1_right_y + 75:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y + 125), (0, 0, 255), 3)
+                            elif finger1_right_y + 25 < finger5_right_y:
                                 if finger1_right_x - 30 < finger2_right_x < finger1_right_x + 30:
                                     gesture_text = 'pa'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\fa.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 75), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y + 75), (0, 0, 255), 3)
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y + 75), (0, 0, 255), 3)
 
-                            elif finger1_right_y - 25 < finger5_left_y < finger1_right_y + 25:
+                            elif finger1_right_y - 25 < finger5_right_y:
                                 if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
                                     gesture_text = 'sol'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\sol.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y + 25), (0, 0, 255), 3)
-                            elif finger1_right_y - 50 < finger4_left_y < finger1_right_y - 25:
-                                if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y + 25), (0, 0, 255), 3)
+                            elif finger1_right_y - 50 < finger5_right_y:
+                                if finger1_right_x - 30 < finger4_left_x < finger1_right_x + 30:
                                     gesture_text = 'la'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\la.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y - 25), (0, 0, 255), 3)
-                            elif finger1_right_y - 75 < finger5_left_y < finger1_right_y - 50:
-                                if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y - 25), (0, 0, 255), 3)
+                            elif finger1_right_y - 75 < finger5_right_y:
+                                if finger1_right_x - 30 < finger3_left_x < finger1_right_x + 30:
                                     gesture_text = 'ti'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\si.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y - 50), (0, 0, 255), 3)
-                            elif finger1_right_y - 125 < finger5_left_y < finger1_right_y - 75:
-                                if finger1_right_x - 30 < finger5_left_x < finger1_right_x + 30:
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y - 50), (0, 0, 255), 3)
+                            elif finger1_right_y - 125 < finger5_right_y:
+                                if finger1_right_x - 30 < finger2_left_x < finger1_right_x + 30:
                                     gesture_text = 'do2'
                                     sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\recorder\highdo.wav'
                                     pygame.mixer.music.load(sound_dir)
                                     pygame.mixer.music.play()
                                     # cv2.rectangle(overlay, (finger1_right_x - 60, finger1_right_y - 175), (finger1_right_x, finger1_right_y + 25), (0,0,255), 3)
-                                    cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
-                                                  (finger1_right_x, finger1_right_y - 75), (0, 0, 255), 3)
+                                    # cv2.rectangle(frame1, (finger1_right_x - 60, finger1_right_y - 175),
+                                    #               (finger1_right_x, finger1_right_y - 75), (0, 0, 255), 3)
 
 
 
@@ -250,7 +251,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         if 200 > finger1_x:
                             con = 1
                             title = input("file name")
-                            time.sleep(10)
+                            time.sleep(5)
                             file = open(title, 'w', encoding='utf-8')
 
                     if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
@@ -396,6 +397,10 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         sound_dir = r'C:\Users\user\PycharmProjects\pythonProject7\OpenSource\drum\rightdrum.wav'
                         pygame.mixer.music.load(sound_dir)
                         pygame.mixer.music.play()
+                    if handLandmarks.landmark[7].y < handLandmarks.landmark[8].y:
+                        if 800 < finger1_x:
+                            con = 0
+                            file.close()
 
         cv2.putText(frame1, text='name, vol, record: {}, {}, {}'.format(gesture_text, vol, con)
                     , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
